@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DBC Visualizer – Interactive Guide</title>
+
+<style>
+/* ------------------ Layout base ------------------ */
+body{
+    font-family: Arial, sans-serif;
+    background:#fafafa;
+    margin:0;          /* nessun bordo esterno */
+    padding:0;         /* nessun padding: il top dell’immagine è a 0% */
+}
+h1{
+    text-align:center;
+    margin:1.2rem 0;
+}
+
+/* ------------------ Wrapper con screenshot ------------------ */
+.ui-wrapper{
+    position:relative;
+    max-width:1002px;   /* larghezza esatta dello screenshot */
+    margin:0 auto;
+    box-shadow:0 0 12px rgba(0,0,0,.25);
+}
+.ui-wrapper img{
+    width:100%;
+    display:block;
+}
+
+/* ------------------ Hot-spot ------------------ */
+.hotspot{
+    position:absolute;
+    cursor:pointer;
+}
+.hotspot:hover{
+    outline:2px dashed #ff9800;
+    outline-offset:-2px;
+}
+
+/* ------------------ Tooltip ------------------ */
+.tooltip{
+    position:fixed;
+    background:#333;
+    color:#fff;
+    padding:6px 10px;
+    border-radius:4px;
+    font-size:.85em;
+    display:none;
+    z-index:999;
+}
+</style>
+</head>
+<body>
+
+<h1>DBC Visualizer – Interactive UI Guide</h1>
+<p style="text-align:center">Hover over (or tap) the highlighted areas to learn what each control does.</p>
+
+<div class="ui-wrapper">
+  <!-- Screenshot -->
+  <!-- <img src="ui_screenshot.png" alt="DBC Visualizer UI"> -->
+
+  <img src="https://github.com/Daniele201sw/immagine/blob/6ecbb81e032b346c24568257ac474ed4043ac62e/ui_screenshot.PNG" alt="DBC Visualizer UI">
+
+
+  <!-- Hot-spots posizionati in percentuale -->
+     <!-- Row 1 – top bar -->
+     <div class="hotspot" data-tip="Open DBC – Browse your disk and load a CAN database (.dbc)"
+          style="left:1%;top:6%;width:7.5%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Help – Open the offline user guide (HTML)"
+          style="left:91.5%;top:6%;width:7.5%;height:3.5%;"></div>
+
+     <!-- Global Search -->
+     <div class="hotspot" data-tip="Global Search – Type any keyword (frame or signal) and press Enter"
+          style="left:2.5%;top:14%;width:87%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Search – Executes the global keyword search"
+          style="left:90.5%;top:14%;width:7.5%;height:3.5%;"></div>
+
+     <!-- Filters -->
+     <div class="hotspot" data-tip="Frame Name filter – narrows the list by partial or full name"
+          style="left:6.5%;top:23.6%;width:91.5%;height:3%;"></div>
+
+     <div class="hotspot" data-tip="Frame ID filter – hex ID, accepts 0x prefix or plain hex"
+          style="left:6.5%;top:27.8%;width:91.5%;height:3%;"></div>
+
+     <div class="hotspot" data-tip='Apply Filters – Combines the "Name" and "ID" criteria'
+          style="left:35%;top:32%;width:19.5%;height:3.2%;"></div>
+
+     <div class="hotspot" data-tip="Reset – Clears both filters and the global search"
+          style="left:55.5%;top:32%;width:9.8%;height:3.2%;"></div>
+
+     <!-- Main panels -->
+     <div class="hotspot" data-tip="Frame list / tree – Click a frame to show its details"
+          style="left:1.5%;top:38%;width:27%;height:52%;"></div>
+
+     <div class="hotspot" data-tip="Details pane – Basic info and signal list for the selected frame"
+          style="left:31%;top:39%;width:66%;height:45%;"></div>
+
+     <div class="hotspot" data-tip="More Info – Open a pop-up with full signal metadata"
+          style="left:90.5%;top:85.5%;width:7.5%;height:3.5%;"></div>
+
+     <!-- Group toggle -->
+     <div class="hotspot" data-tip="Group by Sender Node – Collapse / expand frames by transmitter"
+          style="left:2.5%;top:91%;width:17%;height:3%;"></div>
+
+     <!-- Bottom buttons -->
+     <div class="hotspot" data-tip="Compare DBCs – Highlight frame/signal differences between two files"
+          style="left:1.2%;top:94.8%;width:19%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Merge DBCs – Combine two databases, preserving value tables"
+          style="left:21.1%;top:94.8%;width:19%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Export – Save the current view to Excel, CSV, JSON or HTML"
+          style="left:40.5%;top:94.8%;width:19%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Convert NCF to DBC – One-click conversion of NCF specification files"
+          style="left:60.2%;top:94.8%;width:19%;height:3.5%;"></div>
+
+     <div class="hotspot" data-tip="Edit DBC – Open the database in Vector CANdb++ (if installed)"
+          style="left:80%;top:94.8%;width:19%;height:3.5%;"></div>
+</div>
+
+<!-- Tooltip element -->
+<div id="tt" class="tooltip"></div>
+
+<script>
+/* Tooltip logic */
+const tt = document.getElementById('tt');
+document.querySelectorAll('.hotspot').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+     tt.textContent = el.dataset.tip;
+     tt.style.display = 'block';
+  });
+  el.addEventListener('mousemove',e=>{
+     tt.style.left = (e.pageX + 14) + 'px';
+     tt.style.top  = (e.pageY + 14) + 'px';
+  });
+  el.addEventListener('mouseleave',()=>{ tt.style.display='none'; });
+});
+</script>
+
+</body>
+</html>
